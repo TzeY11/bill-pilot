@@ -1,0 +1,12 @@
+node_modules
+.next
+out
+dist
+*.log
+.DS_Store
+data/
+
+# Keep environment variables out of version control
+.env
+*.db
+*.db-journal

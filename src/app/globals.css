@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+}
+
+body {
+  margin: 0;
+  background: #f6f8fb;
+}
+
+.dark body {
+  background: #020617;
+}
+
+@layer utilities {
+  .dark .bg-mist {
+    background-color: #020617;
+  }
+
+  .dark .bg-panel {
+    background-color: #0f172a;
+  }
+
+  .dark .bg-white {
+    background-color: #0f172a;
+  }
+
+  .dark .bg-slate-50 {
+    background-color: #111827;
+  }
+
+  .dark .text-ink {
+    color: #f8fafc;
+  }
+
+  .dark .text-slate-400 {
+    color: #94a3b8;
+  }
+
+  .dark .text-slate-500 {
+    color: #94a3b8;
+  }
+
+  .dark .text-slate-600,
+  .dark .text-slate-700,
+  .dark .text-slate-800 {
+    color: #cbd5e1;
+  }
+
+  .dark .border-line {
+    border-color: #1e293b;
+  }
+
+  .dark .divide-line > :not([hidden]) ~ :not([hidden]) {
+    border-color: #1e293b;
+  }
+
+  .dark .shadow-soft {
+    box-shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-brand px-4 text-sm font-semibold text-white shadow-soft transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2;
+  }
+
+  .btn-secondary {
+    @apply inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-line bg-white px-4 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800 dark:focus:ring-offset-slate-950;
+  }
+
+  .icon-button {
+    @apply inline-flex h-10 w-10 items-center justify-center rounded-lg border border-line bg-white text-slate-600 transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:focus:ring-offset-slate-950;
+  }
+
+  .form-label {
+    @apply mb-1.5 block text-xs font-semibold uppercase tracking-normal text-slate-500;
+  }
+
+  .form-input {
+    @apply h-11 w-full rounded-lg border border-line bg-white px-3 text-sm text-ink outline-none transition placeholder:text-slate-400 focus:border-brand focus:ring-2 focus:ring-blue-100 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500 dark:focus:ring-blue-950;
+  }
+}
