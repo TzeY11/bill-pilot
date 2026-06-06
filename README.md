@@ -3,9 +3,9 @@
 [![English](https://img.shields.io/badge/lang-English-blue.svg)](./README.md)
 [![简体中文](https://img.shields.io/badge/lang-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-red.svg)](./README.zh-CN.md)
 
-Bill Pilot is a self-hosted billing and renewal dashboard for VPS, servers, domains, memberships, software, game servers, and recurring subscriptions.
+Bill Pilot is a VPS-focused self-hosted billing and renewal dashboard for servers, domains, memberships, software, game servers, and recurring subscriptions.
 
-It is designed for personal/self-hosted use: easy to deploy on a VPS, simple to maintain, and focused on keeping renewal dates and recurring costs visible.
+It is designed to run on your own VPS with a domain name and HTTPS, keeping renewal dates and recurring costs visible in one private dashboard.
 
 ## Features
 
@@ -44,24 +44,6 @@ curl -fsSL https://raw.githubusercontent.com/TzeY11/bill-pilot/main/scripts/inst
 ```
 
 Full deployment guide: [docs/deployment-vps.md](./docs/deployment-vps.md)
-
-## Local Development
-
-Use Node.js 22+ or 24+.
-
-```bash
-git clone https://github.com/TzeY11/bill-pilot.git
-cd bill-pilot
-npm install
-cp .env.example .env
-npm run dev
-```
-
-Open:
-
-```txt
-http://localhost:3000
-```
 
 ## Data
 

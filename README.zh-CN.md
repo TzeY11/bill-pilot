@@ -3,9 +3,9 @@
 [![English](https://img.shields.io/badge/lang-English-blue.svg)](./README.md)
 [![简体中文](https://img.shields.io/badge/lang-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-red.svg)](./README.zh-CN.md)
 
-Bill Pilot 是一个自托管账单与续费管理面板，用来管理 VPS、服务器、域名、软件会员、游戏服务器和各种周期性订阅费用。
+Bill Pilot 是一个面向 VPS 自托管场景的账单与续费管理面板，用来管理服务器、域名、软件会员、游戏服务器和各种周期性订阅费用。
 
-它面向个人和自托管场景：方便部署到自己的 VPS，维护成本低，重点是把续费日期和周期性支出清楚地展示出来。
+它设计为运行在你自己的 VPS 上，通过域名和 HTTPS 访问，把续费日期和周期性支出集中展示在一个私有面板里。
 
 ## 功能
 
@@ -44,24 +44,6 @@ curl -fsSL https://raw.githubusercontent.com/TzeY11/bill-pilot/main/scripts/inst
 ```
 
 完整部署文档：[docs/deployment-vps.zh-CN.md](./docs/deployment-vps.zh-CN.md)
-
-## 本地开发
-
-需要 Node.js 22+ 或 24+。
-
-```bash
-git clone https://github.com/TzeY11/bill-pilot.git
-cd bill-pilot
-npm install
-cp .env.example .env
-npm run dev
-```
-
-打开：
-
-```txt
-http://localhost:3000
-```
 
 ## 数据
 
