@@ -107,6 +107,16 @@ This is the recommended production path for running Bill Pilot on your own VPS.
 
 Bill Pilot currently stores user accounts in SQLite on the server, while service/subscription records are still stored in each user's browser localStorage. Back up the SQLite database for account data, and export browser data manually until service records are moved into the backend.
 
+### One-command Install
+
+Run this on a fresh Debian/Ubuntu VPS after pointing your domain to the server:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/TzeY11/bill-pilot/main/scripts/install-vps.sh | sudo bash -s -- --domain bill-pilot.example.com
+```
+
+Replace `bill-pilot.example.com` with your real domain. The installer will install system dependencies, install Node.js 22 if needed, clone Bill Pilot into `/opt/bill-pilot`, generate `.env`, build the app, create a systemd service, and configure Caddy with HTTPS.
+
 ### Requirements
 
 - A Linux VPS with SSH access
@@ -302,6 +312,8 @@ sudo systemctl restart bill-pilot
 - `/opt/bill-pilot/data` must be writable by the `bill-pilot` user.
 - Check logs with `sudo journalctl -u bill-pilot -f`.
 - Make sure Caddy can reach `127.0.0.1:3000`.
+
+Installer script: [scripts/install-vps.sh](./scripts/install-vps.sh).
 
 For the standalone deployment document, see [docs/deployment-vps.md](./docs/deployment-vps.md).
 

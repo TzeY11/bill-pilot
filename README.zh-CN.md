@@ -121,6 +121,16 @@ npm run start
 
 Bill Pilot 目前有一个重要的本地优先限制：用户账号存储在服务器端 SQLite 中，但服务/订阅记录仍然存储在每个用户浏览器的 localStorage 中。在服务数据迁移到后端之前，SQLite 备份只保护账号数据，服务数据需要手动从浏览器侧导出或迁移。
 
+### 一键安装
+
+把域名解析到 VPS 后，在一台全新的 Debian/Ubuntu VPS 上运行：
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/TzeY11/bill-pilot/main/scripts/install-vps.sh | sudo bash -s -- --domain bill-pilot.example.com
+```
+
+把 `bill-pilot.example.com` 替换成你的真实域名。安装脚本会自动安装系统依赖，在需要时安装 Node.js 22，把 Bill Pilot 克隆到 `/opt/bill-pilot`，生成 `.env`，构建应用，创建 systemd 服务，并配置 Caddy 和 HTTPS。
+
 ### 环境要求
 
 - 一台可以 SSH 登录的 Linux VPS
@@ -316,6 +326,8 @@ sudo systemctl restart bill-pilot
 - `/opt/bill-pilot/data` 必须能被 `bill-pilot` 用户写入。
 - 使用 `sudo journalctl -u bill-pilot -f` 查看日志。
 - 确认 Caddy 可以访问 `127.0.0.1:3000`。
+
+安装脚本：[scripts/install-vps.sh](./scripts/install-vps.sh)。
 
 独立部署文档见 [docs/deployment-vps.md](./docs/deployment-vps.md)。
 
