@@ -23,7 +23,8 @@ It is designed to run on your own VPS with a domain name and HTTPS, keeping rene
 Point your domain to a fresh Debian/Ubuntu VPS, then run:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/TzeY11/bill-pilot/main/scripts/install-vps.sh | sudo bash
+curl -fsSL https://raw.githubusercontent.com/TzeY11/bill-pilot/main/scripts/install-vps.sh -o install-vps.sh
+sudo bash install-vps.sh
 ```
 
 The installer will ask for your domain name. Before running it, create a DNS `A` record for your domain that points to your VPS IP address.
@@ -40,7 +41,8 @@ The installer will:
 Useful installer options:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/TzeY11/bill-pilot/main/scripts/install-vps.sh | sudo bash -s -- --help
+curl -fsSL https://raw.githubusercontent.com/TzeY11/bill-pilot/main/scripts/install-vps.sh -o install-vps.sh
+sudo bash install-vps.sh --help
 ```
 
 Full deployment guide: [docs/deployment-vps.md](./docs/deployment-vps.md)

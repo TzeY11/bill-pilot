@@ -11,7 +11,8 @@ Bill Pilot is currently local-first in one important area: user accounts are sto
 Run this on a fresh Debian/Ubuntu VPS after pointing your domain to the server:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/TzeY11/bill-pilot/main/scripts/install-vps.sh | sudo bash
+curl -fsSL https://raw.githubusercontent.com/TzeY11/bill-pilot/main/scripts/install-vps.sh -o install-vps.sh
+sudo bash install-vps.sh
 ```
 
 The installer will ask for your domain name. Before running it, create a DNS `A` record for your domain that points to your VPS IP address. This is usually done in Cloudflare, your domain registrar, or whichever DNS provider manages your domain.
@@ -21,7 +22,8 @@ The installer will install system dependencies, install Node.js 22 if needed, cl
 Installer options:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/TzeY11/bill-pilot/main/scripts/install-vps.sh | sudo bash -s -- --help
+curl -fsSL https://raw.githubusercontent.com/TzeY11/bill-pilot/main/scripts/install-vps.sh -o install-vps.sh
+sudo bash install-vps.sh --help
 ```
 
 ## Requirements

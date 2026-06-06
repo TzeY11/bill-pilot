@@ -37,7 +37,8 @@ Options:
   -h, --help             Show this help.
 
 Example:
-  curl -fsSL https://raw.githubusercontent.com/TzeY11/bill-pilot/main/scripts/install-vps.sh | sudo bash
+  curl -fsSL https://raw.githubusercontent.com/TzeY11/bill-pilot/main/scripts/install-vps.sh -o install-vps.sh
+  sudo bash install-vps.sh
 EOF
 }
 
