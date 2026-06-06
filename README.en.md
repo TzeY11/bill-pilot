@@ -112,6 +112,10 @@ npm run build
 npm run start
 ```
 
+## Self-hosting
+
+- [Deploy to a VPS](./docs/deployment-vps.md)
+
 ## Data Persistence
 
 User accounts are stored in a local SQLite database. By default:

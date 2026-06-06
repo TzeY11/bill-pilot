@@ -17,3 +17,7 @@ Open:
 ```txt
 http://localhost:3000
 ```
+
+## Self-hosting
+
+- [Deploy to a VPS](./docs/deployment-vps.md)

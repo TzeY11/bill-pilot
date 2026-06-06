@@ -112,6 +112,10 @@ npm run build
 npm run start
 ```
 
+## 自托管部署
+
+- [部署到 VPS](./docs/deployment-vps.md)
+
 ## 数据存储
 
 用户账号会存储在本地 SQLite 数据库中，默认位置：
