@@ -1,5 +1,7 @@
 # Deploy Bill Pilot to a VPS
 
+[English](./deployment-vps.md) | [简体中文](./deployment-vps.zh-CN.md)
+
 This guide shows one practical way to run Bill Pilot on a small Linux VPS with Node.js, systemd, Caddy, and HTTPS.
 
 Bill Pilot is currently local-first in one important area: user accounts are stored in SQLite on the server, but service/subscription records are still stored in each user's browser localStorage. Back up the SQLite database for account data, and export browser data manually until service records are moved into the backend.

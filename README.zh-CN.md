@@ -43,7 +43,7 @@ curl -fsSL https://raw.githubusercontent.com/TzeY11/bill-pilot/main/scripts/inst
 curl -fsSL https://raw.githubusercontent.com/TzeY11/bill-pilot/main/scripts/install-vps.sh | sudo bash -s -- --help
 ```
 
-完整部署文档：[docs/deployment-vps.md](./docs/deployment-vps.md)
+完整部署文档：[docs/deployment-vps.zh-CN.md](./docs/deployment-vps.zh-CN.md)
 
 ## 本地开发
 
@@ -92,7 +92,7 @@ DATABASE_FILE="data/bill-pilot.db"
 
 ## 文档
 
-- [VPS 部署](./docs/deployment-vps.md)
+- [VPS 部署](./docs/deployment-vps.zh-CN.md)
 - [一键安装脚本](./scripts/install-vps.sh)
 
 ## 技术栈
