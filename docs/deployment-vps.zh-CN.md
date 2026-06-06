@@ -11,10 +11,12 @@ Bill Pilot 目前有一个重要的本地优先限制：用户账号存储在服
 把域名解析到一台全新的 Debian/Ubuntu VPS 后运行：
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/TzeY11/bill-pilot/main/scripts/install-vps.sh | sudo bash -s -- --domain bill-pilot.example.com
+curl -fsSL https://raw.githubusercontent.com/TzeY11/bill-pilot/main/scripts/install-vps.sh | sudo bash
 ```
 
-把 `bill-pilot.example.com` 替换成你的真实域名。安装脚本会自动安装系统依赖，在需要时安装 Node.js 22，把 Bill Pilot 克隆到 `/opt/bill-pilot`，生成 `.env`，构建应用，创建 systemd 服务，并配置 Caddy 和 HTTPS。
+安装脚本会提示你输入域名。运行脚本之前，需要先在 Cloudflare、域名注册商或你的 DNS 服务商后台添加一条指向 VPS IP 的 DNS `A` 记录。
+
+安装脚本会自动安装系统依赖，在需要时安装 Node.js 22，把 Bill Pilot 克隆到 `/opt/bill-pilot`，生成 `.env`，构建应用，创建 systemd 服务，并配置 Caddy 和 HTTPS。
 
 查看安装脚本选项：
 
@@ -25,13 +27,28 @@ curl -fsSL https://raw.githubusercontent.com/TzeY11/bill-pilot/main/scripts/inst
 ## 环境要求
 
 - 一台可以 SSH 登录的 Linux VPS
-- 一个已经解析到 VPS 的域名
+- 一个已经通过 `A` 记录解析到 VPS IP 的域名
 - Node.js 22+ 或 24+
 - npm
 - Git
 - Caddy，用于反向代理和 HTTPS
 
 下面的示例使用 Ubuntu/Debian 风格命令。如果你使用其他发行版，请自行调整包管理器命令。
+
+## DNS 设置
+
+运行安装脚本之前，先为你要使用的域名添加 DNS 记录：
+
+```txt
+Type: A
+Name: bill-pilot
+Value: 你的 VPS IPv4 地址
+Proxy: 建议首次安装成功前先使用 DNS only
+```
+
+例如你的主域名是 `example.com`，这条记录会创建 `bill-pilot.example.com`。
+
+如果你使用 Cloudflare，需要在 Cloudflare 的 DNS records 页面手动添加。Bill Pilot 默认不能自动修改 Cloudflare DNS；除非之后单独接入 Cloudflare API，并由用户提供自己的 API Token。
 
 ## 安装运行依赖
 

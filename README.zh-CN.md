@@ -23,10 +23,10 @@ Bill Pilot 是一个面向 VPS 自托管场景的账单与续费管理面板，�
 把域名解析到一台全新的 Debian/Ubuntu VPS 后运行：
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/TzeY11/bill-pilot/main/scripts/install-vps.sh | sudo bash -s -- --domain bill-pilot.example.com
+curl -fsSL https://raw.githubusercontent.com/TzeY11/bill-pilot/main/scripts/install-vps.sh | sudo bash
 ```
 
-把 `bill-pilot.example.com` 替换成你的真实域名。
+安装脚本会提示你输入域名。运行脚本之前，需要先在 Cloudflare、域名注册商或你的 DNS 服务商后台添加一条指向 VPS IP 的 DNS `A` 记录。
 
 安装脚本会自动：
 

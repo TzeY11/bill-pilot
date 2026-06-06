@@ -25,10 +25,10 @@ usage() {
 Install Bill Pilot on a Debian/Ubuntu VPS.
 
 Usage:
-  sudo bash install-vps.sh --domain bill-pilot.example.com
+  sudo bash install-vps.sh
 
 Options:
-  --domain DOMAIN        Public domain for the app. Required unless BILL_PILOT_DOMAIN is set.
+  --domain DOMAIN        Public domain for the app. If omitted, the installer will prompt for it.
   --app-dir PATH         Install directory. Default: /opt/bill-pilot
   --port PORT            Local app port. Default: 3000
   --repo URL             Git repository URL. Default: https://github.com/TzeY11/bill-pilot.git
@@ -37,7 +37,7 @@ Options:
   -h, --help             Show this help.
 
 Example:
-  curl -fsSL https://raw.githubusercontent.com/TzeY11/bill-pilot/main/scripts/install-vps.sh | sudo bash -s -- --domain bill-pilot.example.com
+  curl -fsSL https://raw.githubusercontent.com/TzeY11/bill-pilot/main/scripts/install-vps.sh | sudo bash
 EOF
 }
 
@@ -78,7 +78,25 @@ while [[ $# -gt 0 ]]; do
 done
 
 [[ "$(id -u)" == "0" ]] || die "Run this installer as root, for example with sudo."
-[[ -n "$DOMAIN" ]] || die "Missing --domain. Example: --domain bill-pilot.example.com"
+
+if [[ -z "$DOMAIN" ]]; then
+  if [[ -t 0 ]]; then
+    printf 'Enter the domain for Bill Pilot, for example bill-pilot.example.com: '
+    read -r DOMAIN
+  elif [[ -r /dev/tty ]]; then
+    printf 'Enter the domain for Bill Pilot, for example bill-pilot.example.com: ' > /dev/tty
+    read -r DOMAIN < /dev/tty
+  else
+    die "Missing domain. Run interactively, pass --domain bill-pilot.example.com, or set BILL_PILOT_DOMAIN."
+  fi
+fi
+
+DOMAIN="${DOMAIN#http://}"
+DOMAIN="${DOMAIN#https://}"
+DOMAIN="${DOMAIN%%/*}"
+DOMAIN="${DOMAIN%.}"
+
+[[ -n "$DOMAIN" ]] || die "Domain cannot be empty."
 [[ "$DOMAIN" != *"://"* && "$DOMAIN" != *"/"* ]] || die "Use a bare domain, not a URL. Example: bill-pilot.example.com"
 [[ "$PORT" =~ ^[0-9]+$ ]] || die "--port must be a number."
 [[ -d "$(dirname "$APP_DIR")" ]] || die "Parent directory does not exist: $(dirname "$APP_DIR")"

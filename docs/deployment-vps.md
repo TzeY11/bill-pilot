@@ -11,10 +11,12 @@ Bill Pilot is currently local-first in one important area: user accounts are sto
 Run this on a fresh Debian/Ubuntu VPS after pointing your domain to the server:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/TzeY11/bill-pilot/main/scripts/install-vps.sh | sudo bash -s -- --domain bill-pilot.example.com
+curl -fsSL https://raw.githubusercontent.com/TzeY11/bill-pilot/main/scripts/install-vps.sh | sudo bash
 ```
 
-Replace `bill-pilot.example.com` with your real domain. The installer will install system dependencies, install Node.js 22 if needed, clone Bill Pilot into `/opt/bill-pilot`, generate `.env`, build the app, create a systemd service, and configure Caddy with HTTPS.
+The installer will ask for your domain name. Before running it, create a DNS `A` record for your domain that points to your VPS IP address. This is usually done in Cloudflare, your domain registrar, or whichever DNS provider manages your domain.
+
+The installer will install system dependencies, install Node.js 22 if needed, clone Bill Pilot into `/opt/bill-pilot`, generate `.env`, build the app, create a systemd service, and configure Caddy with HTTPS.
 
 Installer options:
 
@@ -25,13 +27,28 @@ curl -fsSL https://raw.githubusercontent.com/TzeY11/bill-pilot/main/scripts/inst
 ## Requirements
 
 - A Linux VPS with SSH access
-- A domain name pointed to the VPS
+- A domain name with an `A` record pointed to the VPS IP address
 - Node.js 22+ or 24+
 - npm
 - Git
 - Caddy for reverse proxy and HTTPS
 
 The examples below use Ubuntu/Debian-style commands. Adjust package manager commands for your distribution.
+
+## DNS Setup
+
+Before running the installer, create a DNS record for the domain you want to use:
+
+```txt
+Type: A
+Name: bill-pilot
+Value: your VPS IPv4 address
+Proxy: DNS only is recommended until the first install succeeds
+```
+
+For example, if your domain is `example.com`, this creates `bill-pilot.example.com`.
+
+If you use Cloudflare, this is done in the DNS records page. Bill Pilot cannot automatically change Cloudflare DNS unless you build a separate Cloudflare API integration with your own API token.
 
 ## Install Runtime Dependencies
 
