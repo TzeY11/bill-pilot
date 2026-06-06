@@ -7,6 +7,8 @@ Bill Pilot is a VPS-focused self-hosted billing and renewal dashboard for server
 
 It is designed to run on your own VPS with a domain name and HTTPS, keeping renewal dates and recurring costs visible in one private dashboard.
 
+![Bill Pilot dashboard screenshot](./docs/assets/bill-pilot-dashboard.png)
+
 ## Features
 
 - Dashboard for estimated monthly and annual spend

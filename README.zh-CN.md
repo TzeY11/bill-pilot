@@ -7,6 +7,8 @@ Bill Pilot 是一个面向 VPS 自托管场景的账单与续费管理面板，�
 
 它设计为运行在你自己的 VPS 上，通过域名和 HTTPS 访问，把续费日期和周期性支出集中展示在一个私有面板里。
 
+![Bill Pilot dashboard screenshot](./docs/assets/bill-pilot-dashboard.png)
+
 ## 功能
 
 - Dashboard 显示预计月支出和年支出
