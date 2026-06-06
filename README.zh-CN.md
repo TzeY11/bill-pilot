@@ -1,5 +1,8 @@
 # Bill Pilot
 
+[![English](https://img.shields.io/badge/lang-English-blue.svg)](./README.md)
+[![简体中文](https://img.shields.io/badge/lang-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-red.svg)](./README.zh-CN.md)
+
 Bill Pilot 是一个个人账单与续费管理面板，用来管理 VPS、服务器、域名、软件会员、游戏服务和各种周期性订阅费用。
 
 当前版本是本地优先版本，并已加入账号登录：
@@ -114,7 +117,207 @@ npm run start
 
 ## 自托管部署
 
-- [部署到 VPS](./docs/deployment-vps.md)
+这是在自己的 VPS 上运行 Bill Pilot 的推荐生产部署方式。
+
+Bill Pilot 目前有一个重要的本地优先限制：用户账号存储在服务器端 SQLite 中，但服务/订阅记录仍然存储在每个用户浏览器的 localStorage 中。在服务数据迁移到后端之前，SQLite 备份只保护账号数据，服务数据需要手动从浏览器侧导出或迁移。
+
+### 环境要求
+
+- 一台可以 SSH 登录的 Linux VPS
+- 一个已经解析到 VPS 的域名
+- Node.js 22+ 或 24+
+- npm
+- Git
+- Caddy，用于反向代理和 HTTPS
+
+### 安装依赖
+
+```bash
+sudo apt update
+sudo apt install -y git curl caddy
+```
+
+安装 Node.js 22+ 或 24+。例如使用 NodeSource：
+
+```bash
+curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+sudo apt install -y nodejs
+node --version
+npm --version
+```
+
+### 创建应用用户
+
+```bash
+sudo useradd --system --create-home --shell /bin/bash bill-pilot
+sudo mkdir -p /opt/bill-pilot
+sudo chown bill-pilot:bill-pilot /opt/bill-pilot
+```
+
+### 克隆项目
+
+```bash
+sudo -u bill-pilot git clone https://github.com/TzeY11/bill-pilot.git /opt/bill-pilot
+cd /opt/bill-pilot
+```
+
+### 配置环境变量
+
+```bash
+sudo -u bill-pilot cp .env.example .env
+sudo -u bill-pilot nano .env
+```
+
+至少设置：
+
+```env
+AUTH_SECRET="replace-with-a-random-secret-at-least-32-characters"
+DATABASE_FILE="data/bill-pilot.db"
+```
+
+可以这样生成强随机 `AUTH_SECRET`：
+
+```bash
+openssl rand -base64 32
+```
+
+### 安装并构建
+
+```bash
+sudo -u bill-pilot npm install
+sudo -u bill-pilot npm run build
+```
+
+### 使用 systemd 运行
+
+创建服务文件：
+
+```bash
+sudo nano /etc/systemd/system/bill-pilot.service
+```
+
+写入：
+
+```ini
+[Unit]
+Description=Bill Pilot
+After=network.target
+
+[Service]
+Type=simple
+User=bill-pilot
+Group=bill-pilot
+WorkingDirectory=/opt/bill-pilot
+Environment=NODE_ENV=production
+Environment=PORT=3000
+ExecStart=/usr/bin/npm run start
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+```
+
+启动应用：
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable --now bill-pilot
+sudo systemctl status bill-pilot
+```
+
+查看日志：
+
+```bash
+sudo journalctl -u bill-pilot -f
+```
+
+### 配置 Caddy 和 HTTPS
+
+编辑 Caddy 配置：
+
+```bash
+sudo nano /etc/caddy/Caddyfile
+```
+
+使用你的真实域名：
+
+```caddyfile
+bill-pilot.example.com {
+  reverse_proxy 127.0.0.1:3000
+}
+```
+
+重载 Caddy：
+
+```bash
+sudo systemctl reload caddy
+```
+
+只要域名已经解析到 VPS，并且 80/443 端口可访问，Caddy 会自动申请和续期 HTTPS 证书。
+
+### 首次登录
+
+打开你的域名：
+
+```txt
+https://bill-pilot.example.com
+```
+
+然后在网页界面注册第一个账号。
+
+### 数据和备份
+
+默认 SQLite 账号数据库位置：
+
+```txt
+/opt/bill-pilot/data/bill-pilot.db
+```
+
+创建备份目录：
+
+```bash
+sudo mkdir -p /opt/bill-pilot/backups
+sudo chown bill-pilot:bill-pilot /opt/bill-pilot/backups
+```
+
+备份数据库：
+
+```bash
+sudo -u bill-pilot cp /opt/bill-pilot/data/bill-pilot.db /opt/bill-pilot/backups/bill-pilot-$(date +%F).db
+```
+
+恢复备份：
+
+```bash
+sudo systemctl stop bill-pilot
+sudo -u bill-pilot cp /opt/bill-pilot/backups/bill-pilot-YYYY-MM-DD.db /opt/bill-pilot/data/bill-pilot.db
+sudo systemctl start bill-pilot
+```
+
+注意：服务/订阅记录目前存储在浏览器 localStorage 中，不在 SQLite 数据库里。SQLite 备份可以保护账号数据，但暂时不会备份服务列表。
+
+### 升级
+
+先备份数据库，然后执行：
+
+```bash
+cd /opt/bill-pilot
+sudo -u bill-pilot git pull
+sudo -u bill-pilot npm install
+sudo -u bill-pilot npm run build
+sudo systemctl restart bill-pilot
+```
+
+### 常见排查
+
+- `AUTH_SECRET` 必须设置，并且至少 32 个字符。
+- Node.js 必须是 22+ 或 24+。
+- `/opt/bill-pilot/data` 必须能被 `bill-pilot` 用户写入。
+- 使用 `sudo journalctl -u bill-pilot -f` 查看日志。
+- 确认 Caddy 可以访问 `127.0.0.1:3000`。
+
+独立部署文档见 [docs/deployment-vps.md](./docs/deployment-vps.md)。
 
 ## 数据存储
 
