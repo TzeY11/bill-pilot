@@ -71,6 +71,16 @@ sudo bash /opt/bill-pilot/scripts/backup-db.sh
 
 备份脚本会把数据库备份保存到 `/opt/bill-pilot/backups`，默认删除 30 天以前的旧备份。
 
+## 升级
+
+如果你使用一键安装脚本部署在 Linux 服务器上，运行：
+
+```bash
+sudo bash /opt/bill-pilot/scripts/upgrade-server.sh
+```
+
+升级脚本会先备份数据库，然后拉取最新代码、安装依赖、重新构建应用，并重启 systemd 服务。
+
 ## 配置
 
 复制 `.env.example` 到 `.env`，并设置：
@@ -87,6 +97,9 @@ DATABASE_FILE="data/bill-pilot.db"
 - [服务器部署](./docs/deployment-vps.zh-CN.md)
 - [一键安装脚本](./scripts/install-vps.sh)
 - [备份脚本](./scripts/backup-db.sh)
+- [升级脚本](./scripts/upgrade-server.sh)
+- [贡献指南](./CONTRIBUTING.md)
+- [安全政策](./SECURITY.md)
 
 ## License
 

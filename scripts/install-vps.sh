@@ -22,7 +22,7 @@ die() {
 
 usage() {
   cat <<'EOF'
-Install Bill Pilot on a Debian/Ubuntu VPS.
+Install Bill Pilot on a Debian/Ubuntu server.
 
 Usage:
   sudo bash install-vps.sh
@@ -299,7 +299,7 @@ Useful commands:
   sudo systemctl restart $APP_NAME
 
 Notes:
-  Make sure your domain points to this VPS and ports 80/443 are open.
+  Make sure your domain points to this server and ports 80/443 are open.
   User accounts and service/subscription records are stored in SQLite.
   Back up the database regularly:
     sudo bash $APP_DIR/scripts/backup-db.sh

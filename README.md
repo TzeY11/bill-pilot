@@ -71,6 +71,16 @@ sudo bash /opt/bill-pilot/scripts/backup-db.sh
 
 The backup script stores database backups in `/opt/bill-pilot/backups` and removes backups older than 30 days by default.
 
+## Upgrade
+
+On a Linux server installed with the one-command installer, run:
+
+```bash
+sudo bash /opt/bill-pilot/scripts/upgrade-server.sh
+```
+
+The upgrade script backs up the database, pulls the latest code, installs dependencies, rebuilds the app, and restarts the systemd service.
+
 ## Configuration
 
 Copy `.env.example` to `.env` and set:
@@ -87,6 +97,9 @@ DATABASE_FILE="data/bill-pilot.db"
 - [Server deployment](./docs/deployment-vps.md)
 - [Installer script](./scripts/install-vps.sh)
 - [Backup script](./scripts/backup-db.sh)
+- [Upgrade script](./scripts/upgrade-server.sh)
+- [Contributing](./CONTRIBUTING.md)
+- [Security policy](./SECURITY.md)
 
 ## License
 
