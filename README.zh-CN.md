@@ -89,6 +89,7 @@ sudo bash /opt/bill-pilot/scripts/upgrade-server.sh
 ```env
 AUTH_SECRET="replace-with-a-random-secret-at-least-32-characters"
 DATABASE_FILE="data/bill-pilot.db"
+ALLOW_REGISTRATION="false"
 ```
 
 `AUTH_SECRET` 必须至少 32 个字符。
@@ -99,6 +100,7 @@ DATABASE_FILE="data/bill-pilot.db"
 | --- | --- | --- | --- |
 | `AUTH_SECRET` | 是 | 无 | 用于签名会话 Cookie 的密钥，至少 32 个字符。 |
 | `DATABASE_FILE` | 否 | `data/bill-pilot.db` | SQLite 数据库路径。相对路径会按应用目录解析。 |
+| `ALLOW_REGISTRATION` | 否 | `false` | 为 `false` 时只允许第一个账号注册。如需开放更多账号注册，改为 `true` 并重启服务。 |
 | `PORT` | 否 | `3000` | `next start` 和 systemd 服务使用的本地端口。 |
 | `NODE_ENV` | 否 | systemd 中为 `production` | Next.js 应用运行模式。 |
 | `BILL_PILOT_DOMAIN` | 否 | 无 | 安装脚本可选域名输入。 |

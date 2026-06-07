@@ -187,6 +187,7 @@ configure_env() {
     cat > "$env_file" <<EOF
 AUTH_SECRET="$auth_secret"
 DATABASE_FILE="data/bill-pilot.db"
+ALLOW_REGISTRATION="false"
 EOF
   else
     if ! grep -q '^AUTH_SECRET=' "$env_file"; then
@@ -197,6 +198,10 @@ EOF
 
     if ! grep -q '^DATABASE_FILE=' "$env_file"; then
       printf 'DATABASE_FILE="data/bill-pilot.db"\n' >> "$env_file"
+    fi
+
+    if ! grep -q '^ALLOW_REGISTRATION=' "$env_file"; then
+      printf 'ALLOW_REGISTRATION="false"\n' >> "$env_file"
     fi
   fi
 

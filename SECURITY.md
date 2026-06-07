@@ -33,5 +33,6 @@ For public self-hosted deployments:
 - Back up `data/bill-pilot.db` regularly.
 - Keep the server and Node.js runtime updated.
 - Restrict access to `.env`, database files, backups, and server logs.
+- Keep `ALLOW_REGISTRATION=false` unless you intentionally want to allow more users to create accounts.
 
-Registration restriction and login/register rate limiting are planned but not implemented yet.
+By default, only the first account can register. Login attempts are rate-limited to 10 attempts per 5 minutes, and registration attempts are rate-limited to 5 attempts per hour.

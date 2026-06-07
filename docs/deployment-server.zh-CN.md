@@ -99,6 +99,7 @@ sudo -u bill-pilot nano .env
 ```env
 AUTH_SECRET="replace-with-a-random-secret-at-least-32-characters"
 DATABASE_FILE="data/bill-pilot.db"
+ALLOW_REGISTRATION="false"
 ```
 
 `AUTH_SECRET` 必须至少 32 个字符。可以这样生成强随机值：
@@ -113,6 +114,7 @@ openssl rand -base64 32
 | --- | --- | --- | --- |
 | `AUTH_SECRET` | 是 | 无 | 用于签名会话 Cookie 的密钥，至少 32 个字符。 |
 | `DATABASE_FILE` | 否 | `data/bill-pilot.db` | SQLite 数据库路径。相对路径会按应用目录解析。 |
+| `ALLOW_REGISTRATION` | 否 | `false` | 为 `false` 时只允许第一个账号注册。如需开放更多账号注册，改为 `true` 并重启服务。 |
 | `PORT` | 否 | `3000` | `next start` 和 systemd 服务使用的本地端口。 |
 | `NODE_ENV` | 否 | systemd 中为 `production` | Next.js 应用运行模式。 |
 | `BILL_PILOT_DOMAIN` | 否 | 无 | 安装脚本可选域名输入；未设置时脚本会交互式询问。 |
@@ -122,7 +124,7 @@ openssl rand -base64 32
 | `BILL_PILOT_BACKUP_DIR` | 否 | `/opt/bill-pilot/backups` | 备份目录覆盖。 |
 | `BILL_PILOT_BACKUP_KEEP_DAYS` | 否 | `30` | 旧数据库备份保留天数。 |
 
-注册入口限制和登录/注册限流计划在后续安全迭代中实现。
+默认只允许第一个账号注册。如需允许更多用户创建账号，在 `.env` 中设置 `ALLOW_REGISTRATION=true` 并重启服务。登录限流为 5 分钟内 10 次尝试，注册限流为 1 小时内 5 次尝试。
 
 ## 安装并构建
 

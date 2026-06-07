@@ -30,27 +30,53 @@ export const hashPassword = (password: string) => hash(password, 12);
 export const verifyPassword = (password: string, passwordHash: string) =>
   compare(password, passwordHash);
 
-export const createUser = async ({
-  name,
-  email,
-  password,
-}: {
-  name: string;
-  email: string;
-  password: string;
-}) => {
+export const createUser = async (
+  {
+    name,
+    email,
+    password,
+  }: {
+    name: string;
+    email: string;
+    password: string;
+  },
+  options?: { requireFirstUser?: boolean },
+) => {
   const normalizedEmail = normalizeEmail(email);
   const passwordHash = await hashPassword(password);
   const id = randomUUID();
   const timestamp = new Date().toISOString();
 
-  db.prepare(
-    `INSERT INTO users (id, name, email, password_hash, created_at, updated_at)
-     VALUES (?, ?, ?, ?, ?, ?)`,
-  ).run(id, name.trim() || null, normalizedEmail, passwordHash, timestamp, timestamp);
+  db.exec("BEGIN IMMEDIATE");
+  try {
+    if (options?.requireFirstUser && countUsers() > 0) {
+      db.exec("ROLLBACK");
+      return null;
+    }
 
-  return findUserByEmail(normalizedEmail);
+    db.prepare(
+      `INSERT INTO users (id, name, email, password_hash, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?)`,
+    ).run(id, name.trim() || null, normalizedEmail, passwordHash, timestamp, timestamp);
+
+    const user = findUserByEmail(normalizedEmail);
+    db.exec("COMMIT");
+    return user;
+  } catch (error) {
+    db.exec("ROLLBACK");
+    throw error;
+  }
 };
+
+export const countUsers = () =>
+  (db.prepare("SELECT COUNT(*) AS count FROM users").get() as { count: number })
+    .count;
+
+export const isRegistrationExplicitlyOpen = () =>
+  process.env.ALLOW_REGISTRATION?.toLowerCase() === "true";
+
+export const isRegistrationOpen = () =>
+  isRegistrationExplicitlyOpen() || countUsers() === 0;
 
 export const findUserByEmail = (email: string) =>
   db

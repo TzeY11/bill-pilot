@@ -89,6 +89,7 @@ Copy `.env.example` to `.env` and set:
 ```env
 AUTH_SECRET="replace-with-a-random-secret-at-least-32-characters"
 DATABASE_FILE="data/bill-pilot.db"
+ALLOW_REGISTRATION="false"
 ```
 
 `AUTH_SECRET` must be at least 32 characters.
@@ -99,6 +100,7 @@ Configuration reference:
 | --- | --- | --- | --- |
 | `AUTH_SECRET` | Yes | None | Secret used to sign session cookies. Use at least 32 characters. |
 | `DATABASE_FILE` | No | `data/bill-pilot.db` | SQLite database path. Relative paths are resolved from the app directory. |
+| `ALLOW_REGISTRATION` | No | `false` | When `false`, only the first account can register. Set to `true` and restart the service to allow more accounts. |
 | `PORT` | No | `3000` | Local port used by `next start` and the systemd service. |
 | `NODE_ENV` | No | `production` in systemd | Runtime mode for the Next.js app. |
 | `BILL_PILOT_DOMAIN` | No | None | Optional installer input for the public domain. |

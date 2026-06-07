@@ -37,6 +37,15 @@ export type DbServiceSeedState = {
   initialized_at: string;
 };
 
+export type DbAuthRateLimit = {
+  key: string;
+  action: string;
+  identifier_hash: string;
+  window_start: number;
+  attempts: number;
+  updated_at: string;
+};
+
 declare global {
   var billPilotDb: DatabaseSync | undefined;
 }
@@ -93,6 +102,18 @@ const createDatabase = () => {
       initialized_at TEXT NOT NULL,
       FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
     );
+
+    CREATE TABLE IF NOT EXISTS auth_rate_limits (
+      key TEXT PRIMARY KEY,
+      action TEXT NOT NULL,
+      identifier_hash TEXT NOT NULL,
+      window_start INTEGER NOT NULL,
+      attempts INTEGER NOT NULL,
+      updated_at TEXT NOT NULL
+    );
+
+    CREATE INDEX IF NOT EXISTS auth_rate_limits_action_idx
+      ON auth_rate_limits(action, updated_at);
   `);
 
   return db;

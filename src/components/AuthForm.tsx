@@ -7,7 +7,13 @@ import { BarChart3 } from "lucide-react";
 
 type AuthMode = "login" | "register";
 
-export function AuthForm({ mode }: { mode: AuthMode }) {
+export function AuthForm({
+  mode,
+  canRegister = true,
+}: {
+  mode: AuthMode;
+  canRegister?: boolean;
+}) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [name, setName] = useState("");
@@ -18,6 +24,33 @@ export function AuthForm({ mode }: { mode: AuthMode }) {
 
   const isRegister = mode === "register";
   const nextPath = searchParams.get("next") || "/";
+
+  if (isRegister && !canRegister) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-mist px-4 py-10 text-ink dark:bg-slate-950">
+        <section className="w-full max-w-md rounded-lg border border-line bg-panel p-6 shadow-soft">
+          <div className="mb-8 flex items-center gap-3">
+            <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-brand text-white shadow-soft">
+              <BarChart3 size={22} />
+            </div>
+            <div>
+              <h1 className="text-xl font-semibold">Bill Pilot</h1>
+              <p className="text-sm text-slate-500">Registration is closed</p>
+            </div>
+          </div>
+
+          <p className="rounded-lg bg-slate-100 px-4 py-3 text-sm font-medium text-slate-600 dark:bg-slate-900 dark:text-slate-300">
+            This server only allows the first account to register unless the
+            owner enables more registrations.
+          </p>
+
+          <Link className="btn-primary mt-6 block w-full text-center" href="/login">
+            Sign In
+          </Link>
+        </section>
+      </div>
+    );
+  }
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -105,15 +138,17 @@ export function AuthForm({ mode }: { mode: AuthMode }) {
           </button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-slate-500">
-          {isRegister ? "Already have an account?" : "New to Bill Pilot?"}{" "}
-          <Link
-            className="font-semibold text-brand hover:text-blue-700"
-            href={isRegister ? "/login" : "/register"}
-          >
-            {isRegister ? "Sign in" : "Create an account"}
-          </Link>
-        </p>
+        {(isRegister || canRegister) && (
+          <p className="mt-6 text-center text-sm text-slate-500">
+            {isRegister ? "Already have an account?" : "New to Bill Pilot?"}{" "}
+            <Link
+              className="font-semibold text-brand hover:text-blue-700"
+              href={isRegister ? "/login" : "/register"}
+            >
+              {isRegister ? "Sign in" : "Create an account"}
+            </Link>
+          </p>
+        )}
       </section>
     </div>
   );
