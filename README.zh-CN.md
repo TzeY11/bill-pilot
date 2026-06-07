@@ -3,9 +3,9 @@
 [![English](https://img.shields.io/badge/lang-English-blue.svg)](./README.md)
 [![简体中文](https://img.shields.io/badge/lang-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-red.svg)](./README.zh-CN.md)
 
-Bill Pilot 是一个面向 VPS 自托管场景的账单与续费管理面板，用来管理服务器、域名、软件会员、游戏服务器和各种周期性订阅费用。
+Bill Pilot 是一个自托管账单与续费管理面板，用来管理服务器、域名、软件会员、游戏服务器和各种周期性订阅费用。
 
-它设计为运行在你自己的 VPS 上，通过域名和 HTTPS 访问，把续费日期和周期性支出集中展示在一个私有面板里。
+它适合部署在你自己的 Linux 服务器上，包括 VPS、VDS、独立服务器和家用服务器，并通过域名和 HTTPS 访问。
 
 ![Bill Pilot dashboard screenshot](./docs/assets/bill-pilot-dashboard.png)
 
@@ -20,16 +20,16 @@ Bill Pilot 是一个面向 VPS 自托管场景的账单与续费管理面板，�
 - 内置常用服务图标，也支持上传自定义图标
 - 邮箱/密码账号系统，Dashboard、Services 和 Account 页面受保护
 
-## VPS 一键安装
+## 服务器一键安装
 
-把域名解析到一台全新的 Debian/Ubuntu VPS 后运行：
+把域名解析到一台全新的 Debian/Ubuntu 服务器后运行：
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/TzeY11/bill-pilot/main/scripts/install-vps.sh -o install-vps.sh
 sudo bash install-vps.sh
 ```
 
-安装脚本会提示你输入域名。运行脚本之前，需要先在 Cloudflare、域名注册商或你的 DNS 服务商后台添加一条指向 VPS IP 的 DNS `A` 记录。
+安装脚本会提示你输入域名。运行脚本之前，需要先在 Cloudflare、域名注册商或你的 DNS 服务商后台添加一条指向服务器 IP 的 DNS `A` 记录。
 
 安装脚本会自动：
 
@@ -63,7 +63,7 @@ data/bill-pilot.db
 
 ## 备份
 
-如果你使用一键安装脚本部署在 VPS 上，运行：
+如果你使用一键安装脚本部署在 Linux 服务器上，运行：
 
 ```bash
 sudo bash /opt/bill-pilot/scripts/backup-db.sh
@@ -84,7 +84,7 @@ DATABASE_FILE="data/bill-pilot.db"
 
 ## 文档
 
-- [VPS 部署](./docs/deployment-vps.zh-CN.md)
+- [服务器部署](./docs/deployment-vps.zh-CN.md)
 - [一键安装脚本](./scripts/install-vps.sh)
 - [备份脚本](./scripts/backup-db.sh)
 

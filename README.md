@@ -3,9 +3,9 @@
 [![English](https://img.shields.io/badge/lang-English-blue.svg)](./README.md)
 [![简体中文](https://img.shields.io/badge/lang-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-red.svg)](./README.zh-CN.md)
 
-Bill Pilot is a VPS-focused self-hosted billing and renewal dashboard for servers, domains, memberships, software, game servers, and recurring subscriptions.
+Bill Pilot is a self-hosted billing and renewal dashboard for servers, domains, memberships, software, game servers, and recurring subscriptions.
 
-It is designed to run on your own VPS with a domain name and HTTPS, keeping renewal dates and recurring costs visible in one private dashboard.
+It is designed to run on your own Linux server, including VPS, VDS, dedicated servers, and homelab machines, with a domain name and HTTPS.
 
 ![Bill Pilot dashboard screenshot](./docs/assets/bill-pilot-dashboard.png)
 
@@ -20,16 +20,16 @@ It is designed to run on your own VPS with a domain name and HTTPS, keeping rene
 - Built-in service icons and custom icon uploads
 - Email/password accounts with protected pages
 
-## One-command VPS Install
+## One-command Server Install
 
-Point your domain to a fresh Debian/Ubuntu VPS, then run:
+Point your domain to a fresh Debian/Ubuntu server, then run:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/TzeY11/bill-pilot/main/scripts/install-vps.sh -o install-vps.sh
 sudo bash install-vps.sh
 ```
 
-The installer will ask for your domain name. Before running it, create a DNS `A` record for your domain that points to your VPS IP address.
+The installer will ask for your domain name. Before running it, create a DNS `A` record for your domain that points to your server IP address.
 
 The installer will:
 
@@ -63,7 +63,7 @@ Back up `data/bill-pilot.db` to protect accounts and service records.
 
 ## Backup
 
-On a VPS installed with the one-command installer, run:
+On a Linux server installed with the one-command installer, run:
 
 ```bash
 sudo bash /opt/bill-pilot/scripts/backup-db.sh
@@ -84,7 +84,7 @@ DATABASE_FILE="data/bill-pilot.db"
 
 ## Documentation
 
-- [VPS deployment](./docs/deployment-vps.md)
+- [Server deployment](./docs/deployment-vps.md)
 - [Installer script](./scripts/install-vps.sh)
 - [Backup script](./scripts/backup-db.sh)
 
