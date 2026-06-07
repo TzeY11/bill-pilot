@@ -51,19 +51,15 @@ Full deployment guide: [docs/deployment-vps.md](./docs/deployment-vps.md)
 
 ## Data
 
-User accounts are stored in SQLite:
+User accounts and service/subscription records are stored in SQLite:
 
 ```txt
 data/bill-pilot.db
 ```
 
-Service/subscription records are currently stored in browser localStorage:
+When upgrading from an older localStorage-based version, Bill Pilot imports existing browser service data into SQLite the first time the account opens the app.
 
-```txt
-bill-pilot-services
-```
-
-Important: database backups protect user accounts, but they do not yet back up service records. Moving service records from localStorage into SQLite is the next major backend milestone.
+Back up `data/bill-pilot.db` to protect accounts and service records.
 
 ## Configuration
 

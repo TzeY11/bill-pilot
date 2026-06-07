@@ -48,8 +48,8 @@ export function AccountView() {
             <h2 className="text-lg font-semibold">{user?.name || "Account"}</h2>
             <p className="mt-1 text-sm text-slate-500">{user?.email ?? "Loading..."}</p>
             <p className="mt-4 text-sm text-slate-500">
-              Service data is still stored in this browser for now. The next backend step is
-              moving services from localStorage into the database and linking them to this user.
+              Your account and service data are stored in the server SQLite database for this
+              self-hosted instance.
             </p>
           </div>
         </div>

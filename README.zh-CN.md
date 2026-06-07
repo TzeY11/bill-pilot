@@ -51,19 +51,15 @@ sudo bash install-vps.sh --help
 
 ## 数据
 
-用户账号存储在 SQLite：
+用户账号和服务/订阅记录都存储在 SQLite：
 
 ```txt
 data/bill-pilot.db
 ```
 
-服务/订阅记录目前仍然存储在浏览器 localStorage：
+如果你从旧的 localStorage 版本升级，Bill Pilot 会在账号首次打开应用时，把浏览器里的旧服务数据导入 SQLite。
 
-```txt
-bill-pilot-services
-```
-
-注意：数据库备份可以保护用户账号，但暂时不会备份服务列表。把服务记录从 localStorage 迁移到 SQLite 是下一个重要后端里程碑。
+备份 `data/bill-pilot.db` 即可保护账号和服务记录。
 
 ## 配置
 

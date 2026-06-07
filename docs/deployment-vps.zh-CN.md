@@ -4,7 +4,7 @@
 
 这份文档介绍一种实用的 VPS 部署方式：Node.js、systemd、Caddy 和 HTTPS。
 
-Bill Pilot 目前有一个重要的本地优先限制：用户账号存储在服务器端 SQLite 中，但服务/订阅记录仍然存储在每个用户浏览器的 localStorage 中。在服务数据迁移到后端之前，请备份 SQLite 数据库来保护账号数据，并手动导出或迁移浏览器中的服务数据。
+Bill Pilot 会把用户账号和服务/订阅记录存储在服务器端 SQLite 中。如果你从旧的 localStorage 版本升级，账号首次打开应用时会自动把浏览器里的旧服务数据导入 SQLite。
 
 ## 一键安装
 
@@ -196,7 +196,7 @@ https://bill-pilot.example.com
 
 ## 数据和备份
 
-默认 SQLite 账号数据库位置：
+默认 SQLite 数据库位置：
 
 ```txt
 /opt/bill-pilot/data/bill-pilot.db
@@ -223,7 +223,7 @@ sudo -u bill-pilot cp /opt/bill-pilot/backups/bill-pilot-YYYY-MM-DD.db /opt/bill
 sudo systemctl start bill-pilot
 ```
 
-注意：服务/订阅记录目前存储在浏览器 localStorage 中，不在 SQLite 数据库里。SQLite 备份可以保护账号数据，但暂时不会备份服务列表。
+这个数据库包含用户账号和服务/订阅记录。备份它即可保护主要应用数据。
 
 ## 升级
 

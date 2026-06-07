@@ -20,7 +20,8 @@ const defaultFilters: ServiceFilters = {
 
 export function ServicesView() {
   const searchParams = useSearchParams();
-  const { services, isReady, addService, updateService, deleteService } = useServices();
+  const { services, isReady, error, addService, updateService, deleteService } =
+    useServices();
   const [filters, setFilters] = useState<ServiceFilters>(defaultFilters);
   const [editingService, setEditingService] = useState<ServiceItem | null>(null);
   const [formOpen, setFormOpen] = useState(false);
@@ -77,17 +78,24 @@ export function ServicesView() {
 
       {!isReady ? (
         <section className="rounded-lg border border-line bg-panel p-8 text-sm text-slate-500 shadow-soft">
-          Loading local billing data...
+          Loading billing data...
         </section>
       ) : (
-        <ServiceTable
-          services={visibleServices}
-          onEdit={(service) => {
-            setEditingService(service);
-            setFormOpen(true);
-          }}
-          onDelete={handleDelete}
-        />
+        <>
+          {error && (
+            <section className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-900/60 dark:bg-red-950/40 dark:text-red-200">
+              {error}
+            </section>
+          )}
+          <ServiceTable
+            services={visibleServices}
+            onEdit={(service) => {
+              setEditingService(service);
+              setFormOpen(true);
+            }}
+            onDelete={handleDelete}
+          />
+        </>
       )}
 
       {formOpen && (

@@ -17,7 +17,7 @@ import {
 import { currencies, getCurrencyLabel, type Currency } from "@/types/billing";
 
 export function DashboardView() {
-  const { services, isReady } = useServices();
+  const { services, isReady, error } = useServices();
   const { displayCurrency, setDisplayCurrency, exchangeRates, status } =
     useExchangeRates();
 
@@ -88,7 +88,11 @@ export function DashboardView() {
 
       {!isReady ? (
         <section className="rounded-lg border border-line bg-panel p-8 text-sm text-slate-500 shadow-soft">
-          Loading local billing data...
+          Loading billing data...
+        </section>
+      ) : error ? (
+        <section className="rounded-lg border border-red-200 bg-red-50 p-8 text-sm text-red-700 shadow-soft dark:border-red-900/60 dark:bg-red-950/40 dark:text-red-200">
+          {error}
         </section>
       ) : (
         <>

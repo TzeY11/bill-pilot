@@ -4,7 +4,7 @@
 
 This guide shows one practical way to run Bill Pilot on a small Linux VPS with Node.js, systemd, Caddy, and HTTPS.
 
-Bill Pilot is currently local-first in one important area: user accounts are stored in SQLite on the server, but service/subscription records are still stored in each user's browser localStorage. Back up the SQLite database for account data, and export browser data manually until service records are moved into the backend.
+Bill Pilot stores user accounts and service/subscription records in SQLite on the server. If you upgrade from an older localStorage-based version, existing browser service data is imported into SQLite the first time the account opens the app.
 
 ## One-command Install
 
@@ -196,7 +196,7 @@ Register the first account from the web UI.
 
 ## Data and Backups
 
-The default SQLite account database is:
+The default SQLite database is:
 
 ```txt
 /opt/bill-pilot/data/bill-pilot.db
@@ -223,7 +223,7 @@ sudo -u bill-pilot cp /opt/bill-pilot/backups/bill-pilot-YYYY-MM-DD.db /opt/bill
 sudo systemctl start bill-pilot
 ```
 
-Important: service/subscription records are currently stored in browser localStorage, not in the SQLite database. The SQLite backup protects user accounts, but it does not yet back up service records.
+This database contains user accounts and service/subscription records. Backing it up protects the main application data.
 
 ## Upgrade
 
