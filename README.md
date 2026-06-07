@@ -48,7 +48,7 @@ curl -fsSL https://raw.githubusercontent.com/TzeY11/bill-pilot/main/scripts/inst
 sudo bash install-vps.sh --help
 ```
 
-Full deployment guide: [docs/deployment-vps.md](./docs/deployment-vps.md)
+Full deployment guide: [docs/deployment-server.md](./docs/deployment-server.md)
 
 ## Data
 
@@ -93,9 +93,24 @@ DATABASE_FILE="data/bill-pilot.db"
 
 `AUTH_SECRET` must be at least 32 characters.
 
+Configuration reference:
+
+| Variable | Required | Default | Description |
+| --- | --- | --- | --- |
+| `AUTH_SECRET` | Yes | None | Secret used to sign session cookies. Use at least 32 characters. |
+| `DATABASE_FILE` | No | `data/bill-pilot.db` | SQLite database path. Relative paths are resolved from the app directory. |
+| `PORT` | No | `3000` | Local port used by `next start` and the systemd service. |
+| `NODE_ENV` | No | `production` in systemd | Runtime mode for the Next.js app. |
+| `BILL_PILOT_DOMAIN` | No | None | Optional installer input for the public domain. |
+| `BILL_PILOT_PORT` | No | `3000` | Optional installer input for the local app port. |
+| `BILL_PILOT_APP_DIR` | No | `/opt/bill-pilot` | Optional backup script app directory override. |
+| `BILL_PILOT_DATABASE_FILE` | No | From `.env` | Optional backup script database path override. |
+| `BILL_PILOT_BACKUP_DIR` | No | `/opt/bill-pilot/backups` | Optional backup directory override. |
+| `BILL_PILOT_BACKUP_KEEP_DAYS` | No | `30` | Number of days to keep old database backups. |
+
 ## Documentation
 
-- [Server deployment](./docs/deployment-vps.md)
+- [Server deployment](./docs/deployment-server.md)
 - [Installer script](./scripts/install-vps.sh)
 - [Backup script](./scripts/backup-db.sh)
 - [Upgrade script](./scripts/upgrade-server.sh)

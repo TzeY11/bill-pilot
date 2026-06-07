@@ -48,7 +48,7 @@ curl -fsSL https://raw.githubusercontent.com/TzeY11/bill-pilot/main/scripts/inst
 sudo bash install-vps.sh --help
 ```
 
-完整部署文档：[docs/deployment-vps.zh-CN.md](./docs/deployment-vps.zh-CN.md)
+完整部署文档：[docs/deployment-server.zh-CN.md](./docs/deployment-server.zh-CN.md)
 
 ## 数据
 
@@ -93,9 +93,24 @@ DATABASE_FILE="data/bill-pilot.db"
 
 `AUTH_SECRET` 必须至少 32 个字符。
 
+配置参考：
+
+| 变量 | 必填 | 默认值 | 说明 |
+| --- | --- | --- | --- |
+| `AUTH_SECRET` | 是 | 无 | 用于签名会话 Cookie 的密钥，至少 32 个字符。 |
+| `DATABASE_FILE` | 否 | `data/bill-pilot.db` | SQLite 数据库路径。相对路径会按应用目录解析。 |
+| `PORT` | 否 | `3000` | `next start` 和 systemd 服务使用的本地端口。 |
+| `NODE_ENV` | 否 | systemd 中为 `production` | Next.js 应用运行模式。 |
+| `BILL_PILOT_DOMAIN` | 否 | 无 | 安装脚本可选域名输入。 |
+| `BILL_PILOT_PORT` | 否 | `3000` | 安装脚本可选本地端口输入。 |
+| `BILL_PILOT_APP_DIR` | 否 | `/opt/bill-pilot` | 备份脚本可选应用目录覆盖。 |
+| `BILL_PILOT_DATABASE_FILE` | 否 | 读取 `.env` | 备份脚本可选数据库路径覆盖。 |
+| `BILL_PILOT_BACKUP_DIR` | 否 | `/opt/bill-pilot/backups` | 备份目录覆盖。 |
+| `BILL_PILOT_BACKUP_KEEP_DAYS` | 否 | `30` | 旧数据库备份保留天数。 |
+
 ## 文档
 
-- [服务器部署](./docs/deployment-vps.zh-CN.md)
+- [服务器部署](./docs/deployment-server.zh-CN.md)
 - [一键安装脚本](./scripts/install-vps.sh)
 - [备份脚本](./scripts/backup-db.sh)
 - [升级脚本](./scripts/upgrade-server.sh)
