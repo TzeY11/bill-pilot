@@ -61,6 +61,16 @@ data/bill-pilot.db
 
 备份 `data/bill-pilot.db` 即可保护账号和服务记录。
 
+## 备份
+
+如果你使用一键安装脚本部署在 VPS 上，运行：
+
+```bash
+sudo bash /opt/bill-pilot/scripts/backup-db.sh
+```
+
+备份脚本会把数据库备份保存到 `/opt/bill-pilot/backups`，默认删除 30 天以前的旧备份。
+
 ## 配置
 
 复制 `.env.example` 到 `.env`，并设置：
@@ -76,6 +86,11 @@ DATABASE_FILE="data/bill-pilot.db"
 
 - [VPS 部署](./docs/deployment-vps.zh-CN.md)
 - [一键安装脚本](./scripts/install-vps.sh)
+- [备份脚本](./scripts/backup-db.sh)
+
+## License
+
+MIT
 
 ## 技术栈
 

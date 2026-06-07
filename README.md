@@ -61,6 +61,16 @@ When upgrading from an older localStorage-based version, Bill Pilot imports exis
 
 Back up `data/bill-pilot.db` to protect accounts and service records.
 
+## Backup
+
+On a VPS installed with the one-command installer, run:
+
+```bash
+sudo bash /opt/bill-pilot/scripts/backup-db.sh
+```
+
+The backup script stores database backups in `/opt/bill-pilot/backups` and removes backups older than 30 days by default.
+
 ## Configuration
 
 Copy `.env.example` to `.env` and set:
@@ -76,6 +86,11 @@ DATABASE_FILE="data/bill-pilot.db"
 
 - [VPS deployment](./docs/deployment-vps.md)
 - [Installer script](./scripts/install-vps.sh)
+- [Backup script](./scripts/backup-db.sh)
+
+## License
+
+MIT
 
 ## Tech Stack
 

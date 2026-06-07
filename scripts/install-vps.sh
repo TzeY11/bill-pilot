@@ -123,7 +123,7 @@ node_major_version() {
 ensure_system_packages() {
   log "Installing system packages"
   apt-get update
-  apt-get install -y ca-certificates curl git openssl
+  apt-get install -y ca-certificates curl git openssl sqlite3
 
   if [[ "$INSTALL_CADDY" == "1" ]]; then
     apt-get install -y caddy
@@ -300,7 +300,9 @@ Useful commands:
 
 Notes:
   Make sure your domain points to this VPS and ports 80/443 are open.
-  Service/subscription records are currently stored in browser localStorage, not in SQLite.
+  User accounts and service/subscription records are stored in SQLite.
+  Back up the database regularly:
+    sudo bash $APP_DIR/scripts/backup-db.sh
 EOF
 }
 
