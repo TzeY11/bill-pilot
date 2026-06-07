@@ -2,6 +2,7 @@
 
 [![English](https://img.shields.io/badge/lang-English-blue.svg)](./README.md)
 [![简体中文](https://img.shields.io/badge/lang-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-red.svg)](./README.zh-CN.md)
+[![繁體中文](https://img.shields.io/badge/lang-%E7%B9%81%E9%AB%94%E4%B8%AD%E6%96%87-orange.svg)](./README.zh-TW.md)
 
 Bill Pilot is a self-hosted billing and renewal dashboard for servers, domains, memberships, software, game servers, and recurring subscriptions.
 
